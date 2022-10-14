@@ -11,7 +11,7 @@ class SearchFromList:
     
     def _create_dict_with_word(self):
         list_joined = " ".join(self.list_of_sen)
-        words = list(set([word for word in list_joined.split(" ")]))
+        words = set([word for word in list_joined.split(" ")])
         for word in words:
             found_sentence = []
             for sentence in self.list_of_sen:
@@ -20,12 +20,20 @@ class SearchFromList:
             
             self.dict_with_word[word]= found_sentence
         
+    def _check_avaliability(self,word):
+        if self.dict_with_word.get(word):
+            return self.dict_with_word[word]
+        else:
+            return  "Not Found"
+    
     def search_word(self,word):
         if len(self.dict_with_word) == 0:
             self._create_dict_with_word()
-            return self.dict_with_word[word]
+            return self._check_avaliability(word)
         else:
-            return self.dict_with_word[word]
+            return self._check_avaliability(word)
+    
+    
 
 
 list_of_sentences = [
@@ -43,4 +51,4 @@ list_first = SearchFromList(list_of_sentences)
 
 print(list_first.search_word("is"))
 print(list_first.search_word("am"))
-print(list_first.search_word("are"))
+print(list_first.search_word("nabin"))
