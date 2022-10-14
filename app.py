@@ -3,7 +3,7 @@
 class SearchFromList:
 
     def __init__(self,list_of_sen):
-        self.dict_with_word = {
+        self._dict_with_word = {
 
         }
         self.list_of_sen = list_of_sen
@@ -11,23 +11,25 @@ class SearchFromList:
     
     def _create_dict_with_word(self):
         list_joined = " ".join(self.list_of_sen)
-        words = set([word for word in list_joined.split(" ")])
+        words = [word for word in list_joined.split(" ")]
+
         for word in words:
             found_sentence = []
-            for sentence in self.list_of_sen:
-                if word in sentence.split(" "):
-                    found_sentence.append(sentence)
-            
-            self.dict_with_word[word]= found_sentence
+            if not self._dict_with_word.get(word):
+                for sentence in self.list_of_sen:
+                    if word in sentence.split(" "):
+                        found_sentence.append(sentence)
+                
+                self._dict_with_word[word]= found_sentence
         
     def _check_avaliability(self,word):
-        if self.dict_with_word.get(word):
-            return self.dict_with_word[word]
+        if self._dict_with_word.get(word):
+            return self._dict_with_word[word]
         else:
             return  "Not Found"
     
     def search_word(self,word):
-        if len(self.dict_with_word) == 0:
+        if len(self._dict_with_word) == 0:
             self._create_dict_with_word()
             return self._check_avaliability(word)
         else:
