@@ -10,16 +10,24 @@ class SearchFromList:
 
     
     def _create_dict_with_word(self):
-        list_joined = " ".join(self.list_of_sen)
+        # list_joined = " ".join(self.list_of_sen)
 
-        for word in list_joined.split(" "):
-            found_sentence = []
-            if not self._dict_with_word.get(word):
-                for sentence in self.list_of_sen:
-                    if word in sentence.split(" "):
-                        found_sentence.append(sentence)
+        # for word in list_joined.split(" "):
+        #     found_sentence = []
+        #     if not self._dict_with_word.get(word):
+        #         for sentence in self.list_of_sen:
+        #             if word in sentence.split(" "):
+        #                 found_sentence.append(sentence)
                 
-                self._dict_with_word[word]= found_sentence
+        #         self._dict_with_word[word]= found_sentence
+        
+        for sentence in self.list_of_sen:
+            for word in sentence.split(" "):
+
+                if self._dict_with_word.get(word):
+                    self._dict_with_word[word].append(sentence)
+                else:
+                    self._dict_with_word[word] = [sentence]
         
     def _check_avaliability(self,word):
         if self._dict_with_word.get(word):
