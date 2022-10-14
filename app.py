@@ -1,4 +1,4 @@
-
+# App To Search for sentences in list_of_sentences containing word
 
 class SearchFromList:
 
